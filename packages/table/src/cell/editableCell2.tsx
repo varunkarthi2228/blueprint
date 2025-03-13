@@ -128,7 +128,11 @@ export class EditableCell2 extends React.Component<EditableCell2Props, EditableC
     }
 
     public render() {
-        return <HotkeysTarget2 hotkeys={this.hotkeys}>{this.renderCell}</HotkeysTarget2>;
+        return (
+            <HotkeysTarget2 hotkeys={this.hotkeys}>
+                {(hotkeysProps) => this.renderCell(hotkeysProps)}
+            </HotkeysTarget2>
+        );
     }
 
     private renderCell = ({ handleKeyDown, handleKeyUp }: UseHotkeysReturnValue) => {

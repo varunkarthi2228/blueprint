@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import * as React from "react";
 
 import * as Errors from "../../common/errors";
@@ -45,7 +44,7 @@ export interface HotkeysTarget2Props {
  * React component classes. The implementation simply passes through to the hook.
  */
 export const HotkeysTarget2 = ({ children, hotkeys, options }: HotkeysTarget2Props): React.JSX.Element => {
-    const { handleKeyDown, handleKeyUp } = useHotkeys(hotkeys, options);
+    const hotkeysProps = useHotkeys(hotkeys, options) ?? { handleKeyDown: () => {}, handleKeyUp: () => {} };
 
     // run props validation
     React.useEffect(() => {
@@ -57,7 +56,7 @@ export const HotkeysTarget2 = ({ children, hotkeys, options }: HotkeysTarget2Pro
     }, [hotkeys, children]);
 
     if (isFunction(children)) {
-        return children({ handleKeyDown, handleKeyUp });
+        return children(hotkeysProps);
     } else {
         return children;
     }
